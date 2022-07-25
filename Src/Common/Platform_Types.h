@@ -19,16 +19,6 @@
 /**********************************************************************************************************************
  *  GLOBAL CONSTANT MACROS
  *********************************************************************************************************************/
-#define WORD_LENGTH_BITS      32
-#define WORD_LENGTH_BYTES     4
-#define MSB_FIRST             0    /* big endian bit ordering */
-#define LSB_FIRST             1    /* little endian bit ordering */
-
-#define HIGH_BYTE_FIRST       0    /* big endian byte ordering */
-#define LOW_BYTE_FIRST        1    /* little endian byte ordering */
-
-#define CPU_BIT_ORDER    LSB_FIRST        /*little endian bit ordering*/
-#define CPU_BYTE_ORDER   LOW_BYTE_FIRST   /*little endian byte ordering*/
 
 /**********************************************************************************************************************
  *  GLOBAL FUNCTION MACROS

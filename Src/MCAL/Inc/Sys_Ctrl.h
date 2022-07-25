@@ -2,114 +2,100 @@
 
  *  FILE DESCRIPTION
  *  -------------------------------------------------------------------------------------------------------------------
- *         File:  <IntCtrl_types.h>
- *       Module:  NVIC_driver
+ *         File:  <Sys_Ctrl.h>
+ *       Module:  -
  *
- *  Description:  <This file contains the NVIC driver interrupts types>     
+ *  Description:  <Write File DESCRIPTION here>     
  *  
  *********************************************************************************************************************/
-#ifndef IntCtrl_types_H
-#define IntCtrl_types_H
+#ifndef SYS_CTRL_H
+#define SYS_CTRL_H
 
 /**********************************************************************************************************************
  * INCLUDES
  *********************************************************************************************************************/
 
-
 /**********************************************************************************************************************
  *  GLOBAL CONSTANT MACROS
  *********************************************************************************************************************/
 
+#define UDMA_EN_CLK             0
+#define HIB_EN_CLK              0
+#define USB_EN_CLK              0
+#define CAN0_EN_CLK             0
+#define CAN1_EN_CLK             1
+#define ADC0_EN_CLK             0
+#define ADC1_EN_CLK             1
+#define AnalogComp_EN_CLK       0
+#define PWM0_EN_CLK             0
+#define PWM1_EN_CLK             1
+#define QEI0_EN_CLK             0
+#define QEI1_EN_CLK             1
+#define EEPROM_EN_CLCK          0
 
 /**********************************************************************************************************************
  *  GLOBAL FUNCTION MACROS
  *********************************************************************************************************************/
 
-
 /**********************************************************************************************************************
  *  GLOBAL DATA TYPES AND STRUCTURES
  *********************************************************************************************************************/
 typedef enum{
-    GPIO_PORTA,
-    GPIO_PORTB,
-    GPIO_PORTC,
-    GPIO_PORTD,
-    GPIO_PORTE,
-    UART0,
-    UART1,
-    SSI0,
-    I2C0,
-    PWM0_Fault,
-    PWM0_Generator0,
-    PWM0_Generator1,
-    PWM0_Generator2,
-    QEI0,
-    ADC0_Sequence0,
-    ADC0_Sequence1,
-    ADC0_Sequence2,
-    ADC0_Sequence3,
-    Watchdog_Timers0and1,
-    Timer0A_16or32Bit,
-    Timer0B_16or32Bit,
-    Timer1A_16or32Bit,
-    Timer1B_16or32Bit,
-    Timer2A_16or32Bit,
-    Timer2B_16or32Bit,
-    Analog_Comparator0,
-    Analog_Comparator1,
-    SystemControl=28,
-    FlashMemoryControlAndEEPROMControl,
-    GPIO_PortF,
-    UART2=33,
-    SSI1,
-    Timer3A_16or32Bit,
-    Timer3B_16or32Bit,
-    I2C1,
-    QEI1,
-    CAN0,
-    CAN1,
-    HibernationModule=43,
-    USB,
-    PWM0_Generator3,
-    µDMA_Software,
-    µDMA_Error,
-    ADC1_Sequence0,
-    ADC1_Sequence1,
-    ADC1_Sequence2,
-    ADC1_Sequence3,
-    SSI2=57,
-    SSI3,
-    UART3,
-    UART4,
-    UART5,
-    UART6,
-    UART7,
-    I2C2=68,
-    I2C3,
-    Timer4A_16or32Bit, 
-    Timer4B_16or32Bit,
-    Timer5A_16or32Bit=92,
-    Timer5B_16or32Bit,
-    Timer0A_32or64Bit, 
-    Timer0B_32or64Bit, 
-    Timer1A_32or64Bit,
-    Timer1B_32or64Bit,
-    Timer2A_32or64Bit,
-    Timer2B_32or64Bit,
-    Timer3A_32or64Bit,
-    Timer3B_32or64Bit, 
-    Timer4A_32or64Bit, 
-    Timer4B_32or64Bit, 
-    Timer5A_32or64Bit, 
-    Timer5B_32or64Bit, 
-    SystemException,
-    PWM1_Generator0=134,
-    PWM1_Generator1,
-    PWM1_Generator2,
-    PWM1_Generator3,
-    PWM1_Fault
-}IntCtrl_InterruptType;
+    WD0_EN_CLK,
+    WD1_EN_CLK
+}WatchDog_CLOCK;
 
+typedef enum{
+    Module0,
+    Module1,
+    Module2,
+    Module3,
+    Module4,
+    Module5
+}Timer16_32Bit_CLOCK;
+
+typedef enum{
+    GPIOA_EN_CLK,
+    GPIOB_EN_CLK,
+    GPIOC_EN_CLK,
+    GPIOD_EN_CLK,
+    GPIOE_EN_CLK,
+    GPIOF_EN_CLK
+}GPIO_CLOCK;
+
+typedef enum{
+    UART0_EN_CLK,
+    UART1_EN_CLK,
+    UART2_EN_CLK,
+    UART3_EN_CLK,
+    UART4_EN_CLK,
+    UART5_EN_CLK,
+    UART6_EN_CLK,
+    UART7_EN_CLK
+}UART_CLOCK;
+
+typedef enum{
+    SSI0_EN_CLK,
+    SSI1_EN_CLK,
+    SSI2_EN_CLK,
+    SSI3_EN_CLK
+}SSI_CLOCK;
+
+typedef enum{
+    I2C0_EN_CLK,
+    I2C1_EN_CLK,
+    I2C2_EN_CLK,
+    I2C3_EN_CLK
+}I2C_CLOCK;
+
+typedef enum{
+    Module0_32_64,
+    Module1_32_64,
+    Module2_32_64,
+    Module3_32_64,
+    Module4_32_64,
+    Module5_32_64
+}Timer32_64Bit_CLOCK;
 /**********************************************************************************************************************
  *  GLOBAL DATA PROTOTYPES
  *********************************************************************************************************************/
@@ -118,9 +104,10 @@ typedef enum{
 /**********************************************************************************************************************
  *  GLOBAL FUNCTION PROTOTYPES
  *********************************************************************************************************************/
-
- #endif  /* IntCtrl_types_H */
+void SYS_CTRL_INIT(void);
+ 
+#endif  /* SYS_CTRL_H */
 
 /**********************************************************************************************************************
- *  END OF FILE: IntCtrl_types.h
+ *  END OF FILE: Sys_Ctrl.h
  *********************************************************************************************************************/

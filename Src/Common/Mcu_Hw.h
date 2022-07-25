@@ -20,8 +20,28 @@
 /**********************************************************************************************************************
  *  GLOBAL CONSTANT MACROS
  *********************************************************************************************************************/
+
+
+// *************************************NVIC REGISTERS*************************************************
 #define CORTEXM4_PRIV_PERIPH_BASE_ADDR                  0xE000E000
-#define NVIC_REG                                       *(volatile IntCtrl_Reg*)(CORTEXM4_PRIV_PERIPH_BASE_ADDR + 0x100)
+#define NVIC_REGISTER_EN                                ((volatile NVIC_REG_NO*)(CORTEXM4_PRIV_PERIPH_BASE_ADDR + 0x100))
+#define NVIC_REGISTER_DIS                               *(volatile NVIC_REG_NO*)(CORTEXM4_PRIV_PERIPH_BASE_ADDR + 0x180)
+#define NVIC_REGISTER_PEND                              *(volatile NVIC_REG_NO*)(CORTEXM4_PRIV_PERIPH_BASE_ADDR + 0x200)
+#define NVIC_REGISTER_UNPEND                            *(volatile NVIC_REG_NO*)(CORTEXM4_PRIV_PERIPH_BASE_ADDR + 0x280)
+#define NVIC_REGISTER_ACTIVE                            *(volatile NVIC_REG_NO*)(CORTEXM4_PRIV_PERIPH_BASE_ADDR + 0x180)
+#define NVIC_REGISTER_PRI                               ((volatile NVIC_PRI_REG_NO*)(CORTEXM4_PRIV_PERIPH_BASE_ADDR + 0x400))
+#define NVIC_REGISTER_SWTRIG                            *(volatile NVIC_REG_NO*)(CORTEXM4_PRIV_PERIPH_BASE_ADDR + 0xF00)
+
+//*************************************SCB REGISTERS*************************************************
+#define SCB_REG_ACTLR                                   (volatile INT_CTRL_TAG*)(CORTEXM4_PRIV_PERIPH_BASE_ADDR + 0x008)
+#define SCB_REG                                         ((volatile SCB_REG_TYPE*)(CORTEXM4_PRIV_PERIPH_BASE_ADDR + 0xD00))
+//**********************************************************************************************************************
+//*************************************SYSCTRL REGISTERS*************************************************
+#define SYSCTRL_REG_SET1                                ((volatile SYSCTR_SET1*)(CORTEXM4_PRIV_PERIPH_BASE_ADDR + 0x600))
+#define SYSCTR_RCGCUSB_REG                              ((volatile INT_CTRL_TAG*)(CORTEXM4_PRIV_PERIPH_BASE_ADDR + 0x628))
+#define SYSCTRL_REG_SET2                                ((volatile SYSCTR_SET2*)(CORTEXM4_PRIV_PERIPH_BASE_ADDR + 0x634))
+#define SYSCTRL_REG_SET3                                ((volatile SYSCTR_SET3*)(CORTEXM4_PRIV_PERIPH_BASE_ADDR + 0x658))
+
 /**********************************************************************************************************************
  *  GLOBAL DATA TYPES AND STRUCTURES
  *********************************************************************************************************************/
@@ -61,54 +81,108 @@ typedef struct
     u32 bit_31      :1;
 }IntCtrl_BF;
 
+typedef union 
+{
+    /* data */
+    u32 R;
+    IntCtrl_BF B;
+}INT_CTRL_TAG;
+
 
 typedef struct 
 {
-    IntCtrl_BF EN0;
-    IntCtrl_BF EN1;
-    IntCtrl_BF EN2;
-    IntCtrl_BF EN3;
-    IntCtrl_BF EN4;
-    IntCtrl_BF DIS0;
-    IntCtrl_BF DIS1;
-    IntCtrl_BF DIS2;
-    IntCtrl_BF DIS3;
-    IntCtrl_BF DIS4;
-    IntCtrl_BF PIND0;
-    IntCtrl_BF PIND1;
-    IntCtrl_BF PIND2;
-    IntCtrl_BF PIND3;
-    IntCtrl_BF PIND4;
-    IntCtrl_BF UNPIND0;
-    IntCtrl_BF UNPIND1;
-    IntCtrl_BF UNPIND2;
-    IntCtrl_BF UNPIND3;
-    IntCtrl_BF UNPIND4;
-    IntCtrl_BF ACTIVE0;
-    IntCtrl_BF ACTIVE1;
-    IntCtrl_BF ACTIVE2;
-    IntCtrl_BF ACTIVE3;
-    IntCtrl_BF ACTIVE4;
-    IntCtrl_BF PRI0;
-    IntCtrl_BF PRI1;
-    IntCtrl_BF PRI2;
-    IntCtrl_BF PRI3;
-    IntCtrl_BF PRI4;
-    IntCtrl_BF PRI5;
-    IntCtrl_BF PRI6;
-    IntCtrl_BF PRI7;
-    IntCtrl_BF PRI8;
-    IntCtrl_BF PRI9;
-    IntCtrl_BF PRI10;
-    IntCtrl_BF PRI11;
-    IntCtrl_BF PRI12;
-    IntCtrl_BF PRI13;
-    IntCtrl_BF PRI14;
-    IntCtrl_BF PRI15;
-    IntCtrl_BF PRI16;
-    IntCtrl_BF PRI17;
-    IntCtrl_BF PRI18;
-}IntCtrl_Reg;
+    IntCtrl_BF N0;
+    IntCtrl_BF N1;
+    IntCtrl_BF N2;
+    IntCtrl_BF N3;
+    IntCtrl_BF N4;
+}NVIC_REG_NO;
+
+typedef struct 
+{
+    INT_CTRL_TAG N0;
+    INT_CTRL_TAG N1;
+    INT_CTRL_TAG N2;
+    INT_CTRL_TAG N3;
+    INT_CTRL_TAG N4;
+    INT_CTRL_TAG N5;
+    INT_CTRL_TAG N6;
+    INT_CTRL_TAG N7;
+    INT_CTRL_TAG N8;
+    INT_CTRL_TAG N9;
+    INT_CTRL_TAG N10;
+    INT_CTRL_TAG N11;
+    INT_CTRL_TAG N12;
+    INT_CTRL_TAG N13;
+    INT_CTRL_TAG N14;
+    INT_CTRL_TAG N15;
+    INT_CTRL_TAG N16;
+    INT_CTRL_TAG N17;
+    INT_CTRL_TAG N18;
+    INT_CTRL_TAG N19;
+    INT_CTRL_TAG N20;
+    INT_CTRL_TAG N21;
+    INT_CTRL_TAG N22;
+    INT_CTRL_TAG N23;
+    INT_CTRL_TAG N24;
+    INT_CTRL_TAG N25;
+    INT_CTRL_TAG N26;
+    INT_CTRL_TAG N27;
+    INT_CTRL_TAG N28;
+    INT_CTRL_TAG N29;
+    INT_CTRL_TAG N30;
+    INT_CTRL_TAG N31;
+    INT_CTRL_TAG N32;
+    INT_CTRL_TAG N33;
+    INT_CTRL_TAG N34;
+}NVIC_PRI_REG_NO;
+
+
+typedef struct 
+{
+    INT_CTRL_TAG CPUID;
+    INT_CTRL_TAG INTCTRL;
+    INT_CTRL_TAG VTABLE;
+    INT_CTRL_TAG APINT;
+    INT_CTRL_TAG SYSCTRL;
+    INT_CTRL_TAG CFGCTRL;
+    INT_CTRL_TAG SYSPRI1;
+    INT_CTRL_TAG SYSPRI2;
+    INT_CTRL_TAG SYSPRI3;
+    INT_CTRL_TAG SYSHNDCTRL;
+    INT_CTRL_TAG FAULTSTAT;
+    INT_CTRL_TAG HFAULTSTAT;
+    INT_CTRL_TAG MMADDR;
+    INT_CTRL_TAG FAULTADDR;
+}SCB_REG_TYPE;
+
+
+typedef struct 
+{
+    INT_CTRL_TAG RCGCWD;
+    INT_CTRL_TAG RCGCTIMER;
+    INT_CTRL_TAG RCGCGPIO;
+    INT_CTRL_TAG RCGCDMA;
+    INT_CTRL_TAG RCGCHIB;
+    INT_CTRL_TAG RCGCUART;
+    INT_CTRL_TAG RCGCSSI;
+    INT_CTRL_TAG RCGCI2C;
+}SYSCTR_SET1;
+
+typedef struct 
+{
+    INT_CTRL_TAG RCGCCAN;
+    INT_CTRL_TAG RCGCADC;
+    INT_CTRL_TAG RCGCACMP;
+    INT_CTRL_TAG RCGCPWM;
+    INT_CTRL_TAG RCGCQEI;
+}SYSCTR_SET2;
+
+typedef struct 
+{
+    INT_CTRL_TAG RCGCEEPROM;
+    INT_CTRL_TAG RCGCWTIMER;
+}SYSCTR_SET3;
 
 /**********************************************************************************************************************
  *  GLOBAL DATA PROTOTYPES

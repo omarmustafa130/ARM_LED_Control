@@ -42,6 +42,14 @@
 #define SYSCTRL_REG_SET2                                ((volatile SYSCTR_SET2*)(CORTEXM4_PRIV_PERIPH_BASE_ADDR + 0x634))
 #define SYSCTRL_REG_SET3                                ((volatile SYSCTR_SET3*)(CORTEXM4_PRIV_PERIPH_BASE_ADDR + 0x658))
 
+//*************************************GPIO REGISTERS*************************************************
+#define GPIO_PORTA_REG                                  ((volatile GPIO_REG*)(0x40058000))
+#define GPIO_PORTB_REG                                  ((volatile GPIO_REG*)(0x40059000))
+#define GPIO_PORTC_REG                                  ((volatile GPIO_REG*)(0x4005A000))
+#define GPIO_PORTD_REG                                  ((volatile GPIO_REG*)(0x4005B000))
+#define GPIO_PORTE_REG                                  ((volatile GPIO_REG*)(0x4005C000))
+#define GPIO_PORTF_REG                                  ((volatile GPIO_REG*)(0x4005D000))
+
 /**********************************************************************************************************************
  *  GLOBAL DATA TYPES AND STRUCTURES
  *********************************************************************************************************************/
@@ -184,6 +192,48 @@ typedef struct
     INT_CTRL_TAG RCGCWTIMER;
 }SYSCTR_SET3;
 
+
+typedef struct 
+{
+    INT_CTRL_TAG GPIODATA;
+    INT_CTRL_TAG GPIODIR;
+    INT_CTRL_TAG GPIOIS;
+    INT_CTRL_TAG GPIOIBE;    
+    INT_CTRL_TAG GPIOIEV;
+    INT_CTRL_TAG GPIOIM;    
+    INT_CTRL_TAG GPIORIS;
+    INT_CTRL_TAG GPIOMIS;    
+    INT_CTRL_TAG GPIOICR;
+    INT_CTRL_TAG GPIOAFSEL;    
+    INT_CTRL_TAG GPIODR2R;
+    INT_CTRL_TAG GPIODR4R;
+    INT_CTRL_TAG GPIODR8R;
+    INT_CTRL_TAG GPIOODR;
+    INT_CTRL_TAG GPIOPUR;
+    INT_CTRL_TAG GPIOPDR;    
+    INT_CTRL_TAG GPIOSLR;
+    INT_CTRL_TAG GPIODEN;    
+    INT_CTRL_TAG GPIOLOCK;
+    INT_CTRL_TAG GPIOCR;    
+    INT_CTRL_TAG GPIOAMSEL;
+    INT_CTRL_TAG GPIOPCTL;    
+    INT_CTRL_TAG GPIOADCCTL;
+    INT_CTRL_TAG GPIODMACTL;
+
+    INT_CTRL_TAG GPIOPeriphID4;
+    INT_CTRL_TAG GPIOPeriphID5;    
+    INT_CTRL_TAG GPIOPeriphID6;
+    INT_CTRL_TAG GPIOPeriphID7;    
+    INT_CTRL_TAG GPIOPeriphID0;
+    INT_CTRL_TAG GPIOPeriphID1;    
+    INT_CTRL_TAG GPIOPeriphID2;
+    INT_CTRL_TAG GPIOPeriphID3;  
+
+    INT_CTRL_TAG GPIOPCellID0;
+    INT_CTRL_TAG GPIOPCellID1;    
+    INT_CTRL_TAG GPIOPCellID2;
+    INT_CTRL_TAG GPIOPCellID3;  
+}GPIO_REG;
 /**********************************************************************************************************************
  *  GLOBAL DATA PROTOTYPES
  *********************************************************************************************************************/

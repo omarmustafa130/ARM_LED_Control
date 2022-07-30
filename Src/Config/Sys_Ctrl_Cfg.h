@@ -14,11 +14,24 @@
 /**********************************************************************************************************************
  * INCLUDES
  *********************************************************************************************************************/
-
-#include "../Common/Std_Types.h"
 /**********************************************************************************************************************
  *  GLOBAL CONSTANT MACROS
  *********************************************************************************************************************/
+
+#define SYSCLK_DIVISION                SYS_CLOCK_DEVIDED
+#define PWMCLK_DIVISION                USE_PWM_CLOCK_DIV
+#define SYS_DIV_OPTION                 SYSCTL_SYSDIV_4
+#define PWM_DIV_OPTION                 SYSCTL_PWMDIV_2
+#define PLL_DIV_OPTION                 SYSCLK_PLLOUT_DIVIDED
+#define PLL_BYPASS_OPTION              PLL_Normal
+#define PORTA_BUS_CFG                  AHB_A
+#define PORTB_BUS_CFG                  AHB_B
+#define PORTC_BUS_CFG                  AHB_C
+#define PORTD_BUS_CFG                  AHB_D
+#define PORTE_BUS_CFG                  AHB_E
+#define PORTF_BUS_CFG                  AHB_F
+
+
 #define WD0_CLK_GATE                   ENABLE
 #define WD1_CLK_GATE                   ENABLE
 #define TMR0_16_32_CLK_GATE            ENABLE

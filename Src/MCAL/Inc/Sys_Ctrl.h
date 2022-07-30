@@ -40,6 +40,87 @@
 /**********************************************************************************************************************
  *  GLOBAL DATA TYPES AND STRUCTURES
  *********************************************************************************************************************/
+
+typedef enum{
+    SYS_CLOCK_UNDEVIDED,
+    SYS_CLOCK_DEVIDED
+}USESYSDIV;
+
+typedef enum{
+    USE_SYS_CLOCK,
+    USE_PWM_CLOCK_DIV
+}USEPWMDIV;
+
+
+typedef enum{
+    SYSCTL_SYSDIV_1,
+    SYSCTL_SYSDIV_2,
+    SYSCTL_SYSDIV_3,
+    SYSCTL_SYSDIV_4,
+    SYSCTL_SYSDIV_5,
+    SYSCTL_SYSDIV_6,
+    SYSCTL_SYSDIV_7,
+    SYSCTL_SYSDIV_8,
+    SYSCTL_SYSDIV_9,
+    SYSCTL_SYSDIV_10,
+    SYSCTL_SYSDIV_11,
+    SYSCTL_SYSDIV_12,
+    SYSCTL_SYSDIV_13,
+    SYSCTL_SYSDIV_14,
+    SYSCTL_SYSDIV_15,
+    SYSCTL_SYSDIV_16
+}SysDiv;
+
+typedef enum{
+    SYSCTL_PWMDIV_2,
+    SYSCTL_PWMDIV_4,
+    SYSCTL_PWMDIV_8,
+    SYSCTL_PWMDIV_16,
+    SYSCTL_PWMDIV_32,
+    SYSCTL_PWMDIV_64=7
+}PWMDIV;
+
+typedef enum{
+    SYSCLK_PLLOUT_DIVIDED,
+    SYSCLK_OSC_DIVIDED
+}PLL_EN;
+
+
+
+typedef enum{
+    PLL_Normal,
+    PLL_PWR_DWN
+}PLL_BYPASS;
+
+
+
+typedef enum{
+    APB_A,
+    AHB_A
+}PORTA_BUS;
+typedef enum{
+    APB_B,
+    AHB_B
+}PORTB_BUS;
+typedef enum{
+    APB_C,
+    AHB_C
+}PORTC_BUS;
+typedef enum{
+    APB_D,
+    AHB_D
+}PORTD_BUS;
+typedef enum{
+    APB_E,
+    AHB_E
+}PORTE_BUS;
+typedef enum{
+    APB_F,
+    AHB_F
+}PORTF_BUS;
+
+/**********************************************************************************/
+
 typedef enum{
     WD0_EN_CLK,
     WD1_EN_CLK
@@ -96,9 +177,6 @@ typedef enum{
     Module4_32_64,
     Module5_32_64
 }Timer32_64Bit_CLOCK;
-/**********************************************************************************************************************
- *  GLOBAL DATA PROTOTYPES
- *********************************************************************************************************************/
 
  
 /**********************************************************************************************************************

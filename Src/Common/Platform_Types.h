@@ -39,12 +39,6 @@ typedef unsigned long         u32;        /*           0 .. 4294967295      */
 typedef float                 f32;
 typedef double                f64;
 
-#ifdef PLATFORM_SUPPORT_SINT64_UINT64 	/*Valid only for gnu and C99 */
-typedef signed    long long  s64;   	/* -9223372036854775808 .. 9223372036854775807      */
-typedef unsigned  long long  u64;   	/*                    0 .. 18446744073709551615     */
-#endif
-
-
 
  
 /**********************************************************************************************************************

@@ -15,6 +15,7 @@
 #include "../Common/Std_Types.h"
 #include "../Common/Bit_Math.h"
 #include "../Common/Mcu_Hw.h"
+#include "Inc/Port.h"
 #include "Inc/Dio.h"
 
 /**********************************************************************************************************************
@@ -53,152 +54,149 @@
 * \Return value:   : void
 *******************************************************************************/
 
- Dio_LevelType Dio_ReadChannel(Dio_ChannelType ChannelID)
- {
-    if (ChannelID>=0 && ChannelID<=7)
+ Dio_LevelType Dio_ReadChannel(Port_PinType ChannelID)
+ {	
+		u8 x=0;
+    if (ChannelID <=7)
     {
-        return(GET_BIT(GPIO_PORTA_REG->GPIODATA.R,ChannelID));
+
+        x=GET_BIT(GPIO_PORTA_GPIODATA->R,ChannelID);
     }
     else if (ChannelID>=8 && ChannelID<=15)
     {
-        return(GET_BIT(GPIO_PORTB_REG->GPIODATA.R,ChannelID));
+        x=GET_BIT(GPIO_PORTB_GPIODATA->R,ChannelID);
     }
     else if (ChannelID>=16 && ChannelID<=23)
     {
-        return(GET_BIT(GPIO_PORTC_REG->GPIODATA.R,ChannelID));
+        x=GET_BIT(GPIO_PORTC_GPIODATA->R,ChannelID);
     }
 
     else if (ChannelID>=24 && ChannelID<=31)
     {
-        return(GET_BIT(GPIO_PORTD_REG->GPIODATA.R,ChannelID));
+        x=GET_BIT(GPIO_PORTD_GPIODATA->R,ChannelID);
     }  
 
     else if (ChannelID>=32 && ChannelID<=37)
     {
-       return(GET_BIT(GPIO_PORTE_REG->GPIODATA.R,ChannelID));
+       x=GET_BIT(GPIO_PORTE_GPIODATA->R,ChannelID);
     }
 
     else if (ChannelID>=38 && ChannelID<=42)
     {
-        return(GET_BIT(GPIO_PORTF_REG->GPIODATA.R,ChannelID));
-    }  
+       x=GET_BIT(GPIO_PORTF_GPIODATA->R,ChannelID);
+    } 
+return x;		
  }
- void Dio_WriteChannel(Dio_ChannelType ChannelID, Dio_LevelType Level)
+ void Dio_WriteChannel(Port_PinType ChannelID, Dio_LevelType Level)
  {
-    if (ChannelID>=0 && ChannelID<=7)
+    if (ChannelID<=7)
     {
-        if(Level == HIGH)           SET_BIT(GPIO_PORTA_REG->GPIODATA.R, ChannelID);
-        else if (Level==LOW)        CLR_BIT(GPIO_PORTA_REG->GPIODATA.R, ChannelID);
+        if(Level == HIGH)           SET_BIT(GPIO_PORTA_GPIODATA->R, ChannelID);
+        else if (Level==LOW)        CLR_BIT(GPIO_PORTA_GPIODATA->R, ChannelID);
     }
     else if (ChannelID>=8 && ChannelID<=15)
     {
-        if(Level == HIGH)           SET_BIT(GPIO_PORTB_REG->GPIODATA.R, ChannelID);
-        else if (Level==LOW)        CLR_BIT(GPIO_PORTB_REG->GPIODATA.R, ChannelID);
+        if(Level == HIGH)           SET_BIT(GPIO_PORTB_GPIODATA->R, ChannelID);
+        else if (Level==LOW)        CLR_BIT(GPIO_PORTB_GPIODATA->R, ChannelID);
     }
     else if (ChannelID>=16 && ChannelID<=23)
     {
-        if(Level == HIGH)           SET_BIT(GPIO_PORTC_REG->GPIODATA.R, ChannelID);
-        else if (Level==LOW)        CLR_BIT(GPIO_PORTC_REG->GPIODATA.R, ChannelID);
+        if(Level == HIGH)           SET_BIT(GPIO_PORTC_GPIODATA->R, ChannelID);
+        else if (Level==LOW)        CLR_BIT(GPIO_PORTC_GPIODATA->R, ChannelID);
     }
 
     else if (ChannelID>=24 && ChannelID<=31)
     {
-        if(Level == HIGH)           SET_BIT(GPIO_PORTD_REG->GPIODATA.R, ChannelID);
-        else if (Level==LOW)        CLR_BIT(GPIO_PORTD_REG->GPIODATA.R, ChannelID);
+        if(Level == HIGH)           SET_BIT(GPIO_PORTD_GPIODATA->R, ChannelID);
+        else if (Level==LOW)        CLR_BIT(GPIO_PORTD_GPIODATA->R, ChannelID);
     }  
 
     else if (ChannelID>=32 && ChannelID<=37)
     {
-        if(Level == HIGH)           SET_BIT(GPIO_PORTE_REG->GPIODATA.R, ChannelID);
-        else if (Level==LOW)        CLR_BIT(GPIO_PORTE_REG->GPIODATA.R, ChannelID);
+        if(Level == HIGH)           SET_BIT(GPIO_PORTE_GPIODATA->R, ChannelID);
+        else if (Level==LOW)        CLR_BIT(GPIO_PORTE_GPIODATA->R, ChannelID);
     }
 
     else if (ChannelID>=38 && ChannelID<=42)
     {
-        if(Level == HIGH)           SET_BIT(GPIO_PORTF_REG->GPIODATA.R, ChannelID);
-        else if (Level==LOW)        CLR_BIT(GPIO_PORTF_REG->GPIODATA.R, ChannelID);
+        if(Level == HIGH)           SET_BIT(GPIO_PORTF_GPIODATA->R, ChannelID);
+        else if (Level==LOW)        CLR_BIT(GPIO_PORTF_GPIODATA->R, ChannelID);
     }  
  }
 
- Dio_PortLevelType Dio_ReadPort(Dio_PortType Port)
+ Dio_PortLevelType Dio_ReadPort(PortType Port)
  {
     switch (Port)
     {
     case PORTA:
-        return (GPIO_PORTA_REG->GPIODATA.R);
-        break;
+        return (GPIO_PORTA_GPIODATA->R);
     case PORTB:
-        return (GPIO_PORTB_REG->GPIODATA.R);
-        break;
+        return (GPIO_PORTB_GPIODATA->R);
     case PORTC:
-        return (GPIO_PORTC_REG->GPIODATA.R);
-        break;
+        return (GPIO_PORTC_GPIODATA->R);
     case PORTD:
-        return (GPIO_PORTD_REG->GPIODATA.R);
-        break;
+        return (GPIO_PORTD_GPIODATA->R);
     case PORTE:
-        return (GPIO_PORTE_REG->GPIODATA.R);
-        break;
+        return (GPIO_PORTE_GPIODATA->R);
     case PORTF:
-        return (GPIO_PORTF_REG->GPIODATA.R);
-        break;
+        return (GPIO_PORTF_GPIODATA->R);
     }
  }
- void Dio_WritePort(Dio_PortType Port, Dio_PortLevelType Level)
+ void Dio_WritePort(PortType Port, Dio_PortLevelType Level)
  {
     switch (Port)
     {
     case PORTA:
-        GPIO_PORTA_REG->GPIODATA.R=Level;
+        GPIO_PORTA_GPIODATA->R=Level;
         break;
     case PORTB:
-        GPIO_PORTB_REG->GPIODATA.R=Level;
+        GPIO_PORTB_GPIODATA->R=Level;
         break;
     case PORTC:
-        GPIO_PORTC_REG->GPIODATA.R=Level;
+        GPIO_PORTC_GPIODATA->R=Level;
         break;
     case PORTD:
-        GPIO_PORTD_REG->GPIODATA.R=Level;
+        GPIO_PORTD_GPIODATA->R=Level;
         break;
     case PORTE:
-        GPIO_PORTE_REG->GPIODATA.R=Level;
+        GPIO_PORTE_GPIODATA->R=Level;
         break;
     case PORTF:
-        GPIO_PORTF_REG->GPIODATA.R=Level;
+        GPIO_PORTF_GPIODATA->R=Level;
         break;
     }   
  }
 
- Dio_LevelType Dio_FlipChannel(Dio_ChannelType ChannelID)
+ void Dio_FlipChannel(Port_PinType ChannelID)
  {
-    if (ChannelID>=0 && ChannelID<=7)
+    if ( ChannelID<=7)
     {
-        return(TOG_BIT(GPIO_PORTA_REG->GPIODATA.R,ChannelID));
+        TOG_BIT(GPIO_PORTA_GPIODATA->R,ChannelID);
     }
     else if (ChannelID>=8 && ChannelID<=15)
     {
-        return(TOG_BIT(GPIO_PORTB_REG->GPIODATA.R,ChannelID));
+        TOG_BIT(GPIO_PORTB_GPIODATA->R,ChannelID);
     }
     else if (ChannelID>=16 && ChannelID<=23)
     {
-        return(TOG_BIT(GPIO_PORTC_REG->GPIODATA.R,ChannelID));
+        TOG_BIT(GPIO_PORTC_GPIODATA->R,ChannelID);
     }
 
     else if (ChannelID>=24 && ChannelID<=31)
     {
-        return(TOG_BIT(GPIO_PORTD_REG->GPIODATA.R,ChannelID));
+        TOG_BIT(GPIO_PORTD_GPIODATA->R,ChannelID);
     }  
 
     else if (ChannelID>=32 && ChannelID<=37)
     {
-       return(TOG_BIT(GPIO_PORTE_REG->GPIODATA.R,ChannelID));
+       TOG_BIT(GPIO_PORTE_GPIODATA->R,ChannelID);
     }
 
     else if (ChannelID>=38 && ChannelID<=42)
     {
-        return(TOG_BIT(GPIO_PORTF_REG->GPIODATA.R,ChannelID));
+        TOG_BIT(GPIO_PORTF_GPIODATA->R,ChannelID);
     }     
- }
+}
 
 /**********************************************************************************************************************
  *  END OF FILE: Dio.c

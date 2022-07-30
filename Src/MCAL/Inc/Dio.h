@@ -15,6 +15,9 @@
  * INCLUDES
  *********************************************************************************************************************/
 #include "../../Common/Platform_Types.h"
+#include "../../Common/Std_Types.h"
+#include "Port.h"
+
 /**********************************************************************************************************************
  *  GLOBAL CONSTANT MACROS
  *********************************************************************************************************************/
@@ -31,65 +34,21 @@ typedef u32         Dio_PortLevelType;
 /**********************************************************************************************************************
  *  GLOBAL DATA TYPES AND STRUCTURES
  *********************************************************************************************************************/
-typedef enum{
-    LOW,
-    HIGH
+typedef enum {
+   DIO_LOW,
+   DIO_HIGH
 }Dio_LevelType;
 
-typedef enum{
-    PORTA,
-    PORTB,
-    PORTC,
-    PORTD,
-    PORTE,
-    PORTF
-}Dio_PortType;
+typedef enum {
+   PORTA,
+   PORTB,
+   PORTC,
+   PORTD,
+   PORTE,
+   PORTF
+}PortType;
 
-typedef enum{
-    PinA0,
-    PinA1,
-    PinA2,
-    PinA3,
-    PinA4,
-    PinA5,
-    PinA6,
-    PinA7,
-    PinB0,
-    PinB1,
-    PinB2,
-    PinB3,
-    PinB4,
-    PinB5,
-    PinB6,
-    PinB7,
-    PinC0,
-    PinC1,
-    PinC2,
-    PinC3,
-    PinC4,
-    PinC5,
-    PinC6,
-    PinC7,
-    PinD0,
-    PinD1,
-    PinD2,
-    PinD3,
-    PinD4,
-    PinD5,
-    PinD6,
-    PinD7,
-    PinE0,
-    PinE1,
-    PinE2,
-    PinE3,
-    PinE4,
-    PinE5,
-    PinF0,
-    PinF1,
-    PinF2,
-    PinF3,
-    PinF4
-}Dio_ChannelType;
+
 
 /**********************************************************************************************************************
  *  GLOBAL DATA PROTOTYPES
@@ -99,11 +58,11 @@ typedef enum{
 /**********************************************************************************************************************
  *  GLOBAL FUNCTION PROTOTYPES
  *********************************************************************************************************************/
- Dio_LevelType Dio_ReadChannel(Dio_ChannelType);
- void Dio_WriteChannel(Dio_ChannelType, Dio_LevelType);
- Dio_PortLevelType Dio_ReadPort(Dio_PortType);
- void Dio_WritePort(Dio_PortType, Dio_PortLevelType);
- Dio_LevelType Dio_FlipChannel(Dio_ChannelType);
+ Dio_LevelType Dio_ReadChannel(Port_PinType pinType);
+ void Dio_WriteChannel(Port_PinType pinType, Dio_LevelType level);
+ Dio_PortLevelType Dio_ReadPort(PortType port);
+ void Dio_WritePort(PortType port, Dio_PortLevelType level);
+ void Dio_FlipChannel(Port_PinType pinType);
 
 #endif  /* DIO_H */
 
@@ -149,3 +108,5 @@ To configure the GPIO pins of a particular port, follow these steps:
     8. Optionally, software can lock the configurations of the NMI and JTAG/SWD pins on the GPIO
        port pins, by setting the LOCK bits in the GPIOLOCK register.
        */
+			 
+

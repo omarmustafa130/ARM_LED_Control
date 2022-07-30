@@ -14,45 +14,93 @@
 /**********************************************************************************************************************
  * INCLUDES
  *********************************************************************************************************************/
-#include "Platform_Types.h"
-#include "Compiler.h"
 #include "Std_Types.h"
+#include "Platform_Types.h"
 /**********************************************************************************************************************
  *  GLOBAL CONSTANT MACROS
  *********************************************************************************************************************/
 
 
-// *************************************NVIC REGISTERS*************************************************
+/* *************************************NVIC REGISTERS*************************************************/
 #define CORTEXM4_PRIV_PERIPH_BASE_ADDR                  0xE000E000
-#define NVIC_REGISTER_EN                                ((volatile NVIC_REG_NO*)(CORTEXM4_PRIV_PERIPH_BASE_ADDR + 0x100))
-#define NVIC_REGISTER_DIS                               *(volatile NVIC_REG_NO*)(CORTEXM4_PRIV_PERIPH_BASE_ADDR + 0x180)
-#define NVIC_REGISTER_PEND                              *(volatile NVIC_REG_NO*)(CORTEXM4_PRIV_PERIPH_BASE_ADDR + 0x200)
-#define NVIC_REGISTER_UNPEND                            *(volatile NVIC_REG_NO*)(CORTEXM4_PRIV_PERIPH_BASE_ADDR + 0x280)
-#define NVIC_REGISTER_ACTIVE                            *(volatile NVIC_REG_NO*)(CORTEXM4_PRIV_PERIPH_BASE_ADDR + 0x180)
-#define NVIC_REGISTER_PRI                               ((volatile NVIC_PRI_REG_NO*)(CORTEXM4_PRIV_PERIPH_BASE_ADDR + 0x400))
-#define NVIC_REGISTER_SWTRIG                            *(volatile NVIC_REG_NO*)(CORTEXM4_PRIV_PERIPH_BASE_ADDR + 0xF00)
+#define CORTEXM4_SYSCTRL_BASE_ADDR                      0x400FE000
 
-//*************************************SCB REGISTERS*************************************************
+#define NVIC_REGISTER_EN                                ((volatile NVIC_REG_NO*)(CORTEXM4_PRIV_PERIPH_BASE_ADDR + 0x100))
+#define NVIC_REGISTER_DIS                               ((volatile NVIC_REG_NO*)(CORTEXM4_PRIV_PERIPH_BASE_ADDR + 0x180))
+#define NVIC_REGISTER_PEND                              ((volatile NVIC_REG_NO*)(CORTEXM4_PRIV_PERIPH_BASE_ADDR + 0x200))
+#define NVIC_REGISTER_UNPEND                            ((volatile NVIC_REG_NO*)(CORTEXM4_PRIV_PERIPH_BASE_ADDR + 0x280))
+#define NVIC_REGISTER_ACTIVE                            ((volatile NVIC_REG_NO*)(CORTEXM4_PRIV_PERIPH_BASE_ADDR + 0x180))
+#define NVIC_REGISTER_PRI                               ((volatile NVIC_PRI_REG_NO*)(CORTEXM4_PRIV_PERIPH_BASE_ADDR + 0x400))
+#define NVIC_REGISTER_SWTRIG                            ((volatile NVIC_REG_NO*)(CORTEXM4_PRIV_PERIPH_BASE_ADDR + 0xF00))
+
+
+/*************************************SCB REGISTERS*************************************************/
+
 #define SCB_REG_ACTLR                                   (volatile INT_CTRL_TAG*)(CORTEXM4_PRIV_PERIPH_BASE_ADDR + 0x008)
 #define SCB_REG                                         ((volatile SCB_REG_TYPE*)(CORTEXM4_PRIV_PERIPH_BASE_ADDR + 0xD00))
-//**********************************************************************************************************************
-//*************************************SYSCTRL REGISTERS*************************************************
-#define SYSCTRL_REG_SET1                                ((volatile SYSCTR_SET1*)(CORTEXM4_PRIV_PERIPH_BASE_ADDR + 0x600))
-#define SYSCTR_RCGCUSB_REG                              ((volatile INT_CTRL_TAG*)(CORTEXM4_PRIV_PERIPH_BASE_ADDR + 0x628))
-#define SYSCTRL_REG_SET2                                ((volatile SYSCTR_SET2*)(CORTEXM4_PRIV_PERIPH_BASE_ADDR + 0x634))
-#define SYSCTRL_REG_SET3                                ((volatile SYSCTR_SET3*)(CORTEXM4_PRIV_PERIPH_BASE_ADDR + 0x658))
 
-//*************************************GPIO REGISTERS*************************************************
-#define GPIO_PORTA_REG                                  ((volatile GPIO_REG*)(0x40058000))
-#define GPIO_PORTB_REG                                  ((volatile GPIO_REG*)(0x40059000))
-#define GPIO_PORTC_REG                                  ((volatile GPIO_REG*)(0x4005A000))
-#define GPIO_PORTD_REG                                  ((volatile GPIO_REG*)(0x4005B000))
-#define GPIO_PORTE_REG                                  ((volatile GPIO_REG*)(0x4005C000))
-#define GPIO_PORTF_REG                                  ((volatile GPIO_REG*)(0x4005D000))
+/**********************************************************************************************************************/
 
-/**********************************************************************************************************************
- *  GLOBAL DATA TYPES AND STRUCTURES
- *********************************************************************************************************************/
+
+/*************************************SYSCTRL REGISTERS*************************************************/
+#define SYSCTRL_RCC_REG                                 ((volatile INT_CTRL_TAG*)(CORTEXM4_SYSCTRL_BASE_ADDR + 0x060))
+#define SYSCTRL_GPIOHBCTL_REG                           ((volatile INT_CTRL_TAG*)(CORTEXM4_SYSCTRL_BASE_ADDR + 0x06C))
+#define SYSCTRL_REG_SET1                                ((volatile SYSCTR_SET1*)(CORTEXM4_SYSCTRL_BASE_ADDR + 0x600))
+#define SYSCTR_RCGCUSB_REG                              ((volatile INT_CTRL_TAG*)(CORTEXM4_SYSCTRL_BASE_ADDR + 0x628))
+#define SYSCTRL_REG_SET2                                ((volatile SYSCTR_SET2*)(CORTEXM4_SYSCTRL_BASE_ADDR + 0x634))
+#define SYSCTRL_REG_SET3                                ((volatile SYSCTR_SET3*)(CORTEXM4_SYSCTRL_BASE_ADDR + 0x658))
+
+/**************************************GPIO REGISTERS*************************************************/
+#define GPIO_PORTA_GPIODATA                                  ((volatile INT_CTRL_TAG*)(0x40058000))
+#define GPIO_PORTB_GPIODATA                                  ((volatile INT_CTRL_TAG*)(0x40059000))
+#define GPIO_PORTC_GPIODATA                                  ((volatile INT_CTRL_TAG*)(0x4005A000))
+#define GPIO_PORTD_GPIODATA                                  ((volatile INT_CTRL_TAG*)(0x4005B000))
+#define GPIO_PORTE_GPIODATA                                  ((volatile INT_CTRL_TAG*)(0x4005C000))
+#define GPIO_PORTF_GPIODATA                                  ((volatile INT_CTRL_TAG*)(0x4005D000))
+
+#define GPIO_PORTA_REG_SET1                                  ((volatile GPIO_REG_SET1*)(0x40058000+0x400))
+#define GPIO_PORTB_REG_SET1                                  ((volatile GPIO_REG_SET1*)(0x40059000+0x400))
+#define GPIO_PORTC_REG_SET1                                  ((volatile GPIO_REG_SET1*)(0x4005A000+0x400))
+#define GPIO_PORTD_REG_SET1                                  ((volatile GPIO_REG_SET1*)(0x4005B000+0x400))
+#define GPIO_PORTE_REG_SET1                                  ((volatile GPIO_REG_SET1*)(0x4005C000+0x400))
+#define GPIO_PORTF_REG_SET1                                  ((volatile GPIO_REG_SET1*)(0x4005D000+0x400))
+
+#define GPIO_PORTA_REG_SET2                                  ((volatile GPIO_REG_SET2*)(0x40058000+0x500))
+#define GPIO_PORTB_REG_SET2                                  ((volatile GPIO_REG_SET2*)(0x40059000+0x500))
+#define GPIO_PORTC_REG_SET2                                  ((volatile GPIO_REG_SET2*)(0x4005A000+0x500))
+#define GPIO_PORTD_REG_SET2                                  ((volatile GPIO_REG_SET2*)(0x4005B000+0x500))
+#define GPIO_PORTE_REG_SET2                                  ((volatile GPIO_REG_SET2*)(0x4005C000+0x500))
+#define GPIO_PORTF_REG_SET2                                  ((volatile GPIO_REG_SET2*)(0x4005D000+0x500))
+	
+/***************************************GPT Registers**************************************************/
+#define TIMER0_16_32_REG_SET1                                  ((volatile GPT_REG_SET1*)(0x40030000+0x000))
+#define TIMER1_16_32_REG_SET1                                  ((volatile GPT_REG_SET1*)(0x40031000+0x000))
+#define TIMER2_16_32_REG_SET1                                  ((volatile GPT_REG_SET1*)(0x40032000+0x000))
+#define TIMER3_16_32_REG_SET1                                  ((volatile GPT_REG_SET1*)(0x40033000+0x000))
+#define TIMER4_16_32_REG_SET1                                  ((volatile GPT_REG_SET1*)(0x40034000+0x000))
+#define TIMER5_16_32_REG_SET1                                  ((volatile GPT_REG_SET1*)(0x40034000+0x000))
+
+#define TIMER0_16_32_REG_SET2                                  ((volatile GPT_REG_SET2*)(0x40030000+0x018))
+#define TIMER1_16_32_REG_SET2                                  ((volatile GPT_REG_SET2*)(0x40031000+0x018))
+#define TIMER2_16_32_REG_SET2                                  ((volatile GPT_REG_SET2*)(0x40032000+0x018))
+#define TIMER3_16_32_REG_SET2                                  ((volatile GPT_REG_SET2*)(0x40033000+0x018))
+#define TIMER4_16_32_REG_SET2                                  ((volatile GPT_REG_SET2*)(0x40034000+0x018))
+#define TIMER5_16_32_REG_SET2                                  ((volatile GPT_REG_SET2*)(0x40035000+0x018))
+
+#define TIMER0_32_64_REG_SET1                                  ((volatile GPT_REG_SET1*)(0x40036000+0x000))
+#define TIMER1_32_64_REG_SET1                                  ((volatile GPT_REG_SET1*)(0x40037000+0x000))
+#define TIMER2_32_64_REG_SET1                                  ((volatile GPT_REG_SET1*)(0x4003C000+0x000))
+#define TIMER3_32_64_REG_SET1                                  ((volatile GPT_REG_SET1*)(0x4003D000+0x000))
+#define TIMER4_32_64_REG_SET1                                  ((volatile GPT_REG_SET1*)(0x4003E000+0x000))
+#define TIMER5_32_64_REG_SET1                                  ((volatile GPT_REG_SET1*)(0x4003F000+0x000))
+
+#define TIMER0_32_64_REG_SET2                                  ((volatile GPT_REG_SET2*)(0x40036000+0x018))
+#define TIMER1_32_64_REG_SET2                                  ((volatile GPT_REG_SET2*)(0x40037000+0x018))
+#define TIMER2_32_64_REG_SET2                                  ((volatile GPT_REG_SET2*)(0x4003C000+0x018))
+#define TIMER3_32_64_REG_SET2                                  ((volatile GPT_REG_SET2*)(0x4003D000+0x018))
+#define TIMER4_32_64_REG_SET2                                  ((volatile GPT_REG_SET2*)(0x4003E000+0x018))
+#define TIMER5_32_64_REG_SET2                                  ((volatile GPT_REG_SET2*)(0x4003F000+0x018))
+/*************************************************************************************************************/
 typedef struct 
 {
     u32 bit_0       :1;
@@ -87,23 +135,58 @@ typedef struct
     u32 bit_29      :1;
     u32 bit_30      :1;
     u32 bit_31      :1;
-}IntCtrl_BF;
+}REG32_BF;
+
+typedef enum 
+{
+     bit0,      
+     bit1,       
+     bit2,       
+     bit3,       
+     bit4,       
+     bit5,       
+     bit6,      
+     bit7,      
+     bit8,   
+     bit9,      
+     bit10,    
+     bit11,     
+     bit12,     
+     bit13, 
+     bit14,   
+     bit15,   
+     bit16,    
+     bit17,  
+     bit18,
+     bit19,   
+     bit20,     
+     bit21,     
+     bit22,      
+     bit23,      
+     bit24,    
+     bit25,     
+     bit26,      
+     bit27,     
+     bit28,     
+     bit29,      
+     bit30,      
+     bit31      
+	 } BIT_NO;
 
 typedef union 
 {
-    /* data */
     u32 R;
-    IntCtrl_BF B;
+    REG32_BF B;
 }INT_CTRL_TAG;
 
 
 typedef struct 
 {
-    IntCtrl_BF N0;
-    IntCtrl_BF N1;
-    IntCtrl_BF N2;
-    IntCtrl_BF N3;
-    IntCtrl_BF N4;
+    REG32_BF N0;
+    REG32_BF N1;
+    REG32_BF N2;
+    REG32_BF N3;
+    REG32_BF N4;
 }NVIC_REG_NO;
 
 typedef struct 
@@ -195,7 +278,6 @@ typedef struct
 
 typedef struct 
 {
-    INT_CTRL_TAG GPIODATA;
     INT_CTRL_TAG GPIODIR;
     INT_CTRL_TAG GPIOIS;
     INT_CTRL_TAG GPIOIBE;    
@@ -204,7 +286,11 @@ typedef struct
     INT_CTRL_TAG GPIORIS;
     INT_CTRL_TAG GPIOMIS;    
     INT_CTRL_TAG GPIOICR;
-    INT_CTRL_TAG GPIOAFSEL;    
+    INT_CTRL_TAG GPIOAFSEL; 
+}GPIO_REG_SET1;
+
+typedef struct 
+{
     INT_CTRL_TAG GPIODR2R;
     INT_CTRL_TAG GPIODR4R;
     INT_CTRL_TAG GPIODR8R;
@@ -219,21 +305,45 @@ typedef struct
     INT_CTRL_TAG GPIOPCTL;    
     INT_CTRL_TAG GPIOADCCTL;
     INT_CTRL_TAG GPIODMACTL;
+}GPIO_REG_SET2;
 
-    INT_CTRL_TAG GPIOPeriphID4;
-    INT_CTRL_TAG GPIOPeriphID5;    
-    INT_CTRL_TAG GPIOPeriphID6;
-    INT_CTRL_TAG GPIOPeriphID7;    
-    INT_CTRL_TAG GPIOPeriphID0;
-    INT_CTRL_TAG GPIOPeriphID1;    
-    INT_CTRL_TAG GPIOPeriphID2;
-    INT_CTRL_TAG GPIOPeriphID3;  
 
-    INT_CTRL_TAG GPIOPCellID0;
-    INT_CTRL_TAG GPIOPCellID1;    
-    INT_CTRL_TAG GPIOPCellID2;
-    INT_CTRL_TAG GPIOPCellID3;  
-}GPIO_REG;
+
+
+typedef struct 
+{
+    INT_CTRL_TAG GPTMCFG;
+    INT_CTRL_TAG GPTMTAMR;
+    INT_CTRL_TAG GPTMTBMR;    
+    INT_CTRL_TAG GPTMCTL;
+    INT_CTRL_TAG GPTMSYNC;    
+}GPT_REG_SET1;
+
+typedef struct 
+{
+    INT_CTRL_TAG GPTMIMR;
+    INT_CTRL_TAG GPTMRIS;
+    INT_CTRL_TAG GPTMMIS;
+    INT_CTRL_TAG GPTMICR;
+    INT_CTRL_TAG GPTMTAILR;
+    INT_CTRL_TAG GPTMTBILR;    
+    INT_CTRL_TAG GPTMTAMATCHR;
+    INT_CTRL_TAG GPTMTBMATCHR;    
+    INT_CTRL_TAG GPTMTAPR;
+    INT_CTRL_TAG GPTMTBPR;    
+    INT_CTRL_TAG GPTMTAPMR;
+    INT_CTRL_TAG GPTMTBPMR;    
+    INT_CTRL_TAG GPTMTAR;
+    INT_CTRL_TAG GPTMTBR;
+    INT_CTRL_TAG GPTMTAV;
+    INT_CTRL_TAG GPTMTBV;    
+    INT_CTRL_TAG GPTMRTCPD;
+    INT_CTRL_TAG GPTMTAPS;    
+    INT_CTRL_TAG GPTMTBPS;
+    INT_CTRL_TAG GPTMTAPV;    
+    INT_CTRL_TAG GPTMTBPV;
+    INT_CTRL_TAG GPTMPP;
+}GPT_REG_SET2;
 /**********************************************************************************************************************
  *  GLOBAL DATA PROTOTYPES
  *********************************************************************************************************************/

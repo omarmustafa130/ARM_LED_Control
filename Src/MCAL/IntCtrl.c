@@ -15,6 +15,8 @@
 #include "Inc/IntCtrl.h"
 
 #include "../Common/Std_Types.h"
+#include "../Common/Platform_Types.h"
+
 #include "../Common/Mcu_Hw.h"
 #include "../Config/IntCtrl_Cfg.h"
 /**********************************************************************************************************************
@@ -54,31 +56,38 @@
 *******************************************************************************/
 void IntCtrl_Init(void)
 {
-	//Configure groups and subgrous with APINT
-    SCB_REG->APINT.R= 0xFA05|(Int_Group_and_Subgroup_config<<8);
-    //Assign group\subgroup priority in NVIC_PRIx Nvic and SCB_SUSPRIx regs
+    if (GPIO_PORTA_Int_State==ENABLE)   	        NVIC_REGISTER_EN->N0.bit_0=ENABLE;
+    if (GPIO_PORTB_Int_State==ENABLE)   	        NVIC_REGISTER_EN->N0.bit_1=ENABLE;
+    if (GPIO_PORTC_Int_State==ENABLE)   	        NVIC_REGISTER_EN->N0.bit_2=ENABLE;
+    if (GPIO_PORTD_Int_State==ENABLE)   	        NVIC_REGISTER_EN->N0.bit_3=ENABLE;
+    if (GPIO_PORTE_Int_State==ENABLE)   	        NVIC_REGISTER_EN->N0.bit_4=ENABLE;
+    if (GPIO_PORTF_Int_State==ENABLE)   	        NVIC_REGISTER_EN->N0.bit_30=ENABLE;
+	/*Configure groups and subgrous with APINT*/
+    SCB_REG->APINT.R|= (APINTKEY<<16)|(Int_Group_and_Subgroup_config<<8);
+
+
+    /*Assign group\subgroup priority in NVIC_PRIx Nvic and SCB_SUSPRIx regs*/
     /***********************************PRIx***********************************/
     NVIC_REGISTER_PRI->N0.R|=(PRI_GPIO_PORTA<<5)|(PRI_GPIO_PORTB<<13)|(PRI_GPIO_PORTC<<21)|(PRI_GPIO_PORTD<<29);
-    NVIC_REGISTER_PRI->N1.R|=(PRI_GPIO_PORTE<<5)|(PRI_UART0<<13)|(PRI_UART1<<21)|(PRI_SSI0<<29);
+    NVIC_REGISTER_PRI->N1.R|=(PRI_GPIO_PORTE<<5u)|(PRI_UART0<<13u)|(PRI_UART1<<21u);
     NVIC_REGISTER_PRI->N2.R|=(PRI_I2C0<<5)|(PRI_PWM0_Fault<<13)|(PRI_PWM0_Generator0<<21)|(PRI_PWM0_Generator1<<29);
-    NVIC_REGISTER_PRI->N3.R|=(PRI_PWM0_Generator2<<5)|(PRI_QEI0<<13)|(PRI_ADC0_Sequence0<<21)|(PRI_ADC0_Sequence1<<29);
+    NVIC_REGISTER_PRI->N3.R|=(PRI_PWM0_Generator2<<5)|(PRI_QEI0<<13)|(PRI_ADC0_Sequence0<<21);
     NVIC_REGISTER_PRI->N4.R|=(PRI_ADC0_Sequence2<<5)|(PRI_ADC0_Sequence3<<13)|(PRI_Watchdog_Timers0and1<<21)|(PRI_Timer0A_16or32Bit<<29);
     NVIC_REGISTER_PRI->N5.R|=(PRI_Timer0B_16or32Bit<<5)|(PRI_Timer1A_16or32Bit<<13)|(PRI_Timer1B_16or32Bit<<21)|(PRI_Timer2A_16or32Bit<<29);
     NVIC_REGISTER_PRI->N6.R|=(PRI_Timer2B_16or32Bit<<5)|(PRI_Analog_Comparator0<<13)|(PRI_Analog_Comparator1<<21);
     NVIC_REGISTER_PRI->N7.R|=(PRI_SystemControl<<5)|(PRI_FMCAndEEPROMC<<13)|(PRI_GPIO_PortF<<21);
     NVIC_REGISTER_PRI->N8.R|=(PRI_UART2<<13)|(PRI_SSI1<<21)|(PRI_Timer3A_16or32Bit<<29);
-    NVIC_REGISTER_PRI->N9.R|=(PRI_Timer3B_16or32Bit<<5)|(PRI_I2C1<<13)|(QEI1<<21)|(CAN0<<29);
+    NVIC_REGISTER_PRI->N9.R|=(PRI_Timer3B_16or32Bit<<5)|(PRI_I2C1<<13)|(QEI1<<21);
     NVIC_REGISTER_PRI->N10.R|=(PRI_CAN1<<5)|(PRI_HibernationModule<<13);
-    NVIC_REGISTER_PRI->N11.R|=(PRI_USB<<5)|(PRI_PWM0_Generator3<<13)|(PRI_uDMA_Software<<21)|(PRI_uDMA_Error<<29);
-    NVIC_REGISTER_PRI->N12.R|=(PRI_ADC1_Sequence0<<5)|(PRI_ADC1_Sequence1<<13)|(PRI_ADC1_Sequence2<<21)|(PRI_ADC1_Sequence3<<29);
-    NVIC_REGISTER_PRI->N14.R|=(PRI_SSI2<<13)|(PRI_SSI3<<21)|(PRI_UART3<<29);
-    NVIC_REGISTER_PRI->N15.R|=(PRI_UART4<<5)|(PRI_UART5<<13)|(PRI_UART6<<21)|(PRI_UART7<<29);
+    NVIC_REGISTER_PRI->N11.R|=(PRI_USB<<5)|(PRI_PWM0_Generator3<<13)|(PRI_uDMA_Software<<21);
+    NVIC_REGISTER_PRI->N12.R|=(PRI_ADC1_Sequence0<<5)|(PRI_ADC1_Sequence1<<13)|(PRI_ADC1_Sequence2<<21);
+    NVIC_REGISTER_PRI->N14.R|=(PRI_SSI2<<13)|(PRI_SSI3<<21);
+    NVIC_REGISTER_PRI->N15.R|=(PRI_UART4<<5)|(PRI_UART5<<13)|(PRI_UART6<<21);
     NVIC_REGISTER_PRI->N17.R|=(PRI_I2C2<<5)|(PRI_I2C3<<13)|(PRI_Timer4A_16or32Bit<<21)|(PRI_Timer4B_16or32Bit<<29);
     NVIC_REGISTER_PRI->N23.R|=(PRI_Timer5A_16or32Bit<<5)|(PRI_Timer5B_16or32Bit<<13)|(PRI_Timer0A_32or64Bit<<21)|(PRI_Timer0B_32or64Bit<<29);
     NVIC_REGISTER_PRI->N24.R|=(PRI_Timer1A_32or64Bit<<5)|(PRI_Timer1B_32or64Bit<<13)|(PRI_Timer2A_32or64Bit<<21)|(PRI_Timer2B_32or64Bit<<29);
     NVIC_REGISTER_PRI->N25.R|=(PRI_Timer3A_32or64Bit<<5)|(PRI_Timer3B_32or64Bit<<13)|(PRI_Timer4A_32or64Bit<<21)|(PRI_Timer4B_32or64Bit<<29);
     NVIC_REGISTER_PRI->N26.R|=(PRI_Timer5A_32or64Bit<<5)|(PRI_Timer5B_32or64Bit<<13)|(PRI_SystemException<<21);
-
     NVIC_REGISTER_PRI->N33.R|=(PRI_PWM1_Generator0<<21)|(PRI_PWM1_Generator1<<29);
     NVIC_REGISTER_PRI->N34.R|=(PRI_PWM1_Generator2<<5)|(PRI_PWM1_Generator3<<13)|(PRI_PWM1_Fault<<21);
 
@@ -88,13 +97,8 @@ void IntCtrl_Init(void)
     SCB_REG->SYSPRI2.R|=(SYSPRI_SVC<<29);
     SCB_REG->SYSPRI3.R|=(SYSPRI_DEBUG<<5)|(SYSPRI_PENDSV<<21)|(SYSPRI_TICK<<21);
 
-    //Enable\disable using user configs in NVIC_ENx and SCB_Sys regs.
-    if (GPIO_PORTA_Int_State==ENABLE)   	        NVIC_REGISTER_EN->N0.bit_0=ENABLE;
-    if (GPIO_PORTB_Int_State==ENABLE)   	        NVIC_REGISTER_EN->N0.bit_1=ENABLE;
-    if (GPIO_PORTC_Int_State==ENABLE)   	        NVIC_REGISTER_EN->N0.bit_2=ENABLE;
-    if (GPIO_PORTD_Int_State==ENABLE)   	        NVIC_REGISTER_EN->N0.bit_3=ENABLE;
-    if (GPIO_PORTE_Int_State==ENABLE)   	        NVIC_REGISTER_EN->N0.bit_4=ENABLE;
-    if (GPIO_PORTF_Int_State==ENABLE)   	        NVIC_REGISTER_EN->N0.bit_30=ENABLE;
+    /*Enable\disable using user configs in NVIC_ENx and SCB_Sys regs.*/
+    
 
 
     if (UART0_Int_State==ENABLE)   	                NVIC_REGISTER_EN->N0.bit_5=ENABLE;

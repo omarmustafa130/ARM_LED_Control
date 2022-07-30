@@ -1,0 +1,13 @@
+{
+    "files.associations": {
+        "port.h": "c",
+        "std_types.h": "c",
+        "bit_math.h": "c",
+        "intctrl.h": "c",
+        "intctrl_types.h": "c",
+        "externalinterrupts.h": "c",
+        "mcu_hw.h": "c",
+        "gpt.h": "c",
+        "gpt_cfg.h": "c"
+    }
+}

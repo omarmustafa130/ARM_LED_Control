@@ -20,11 +20,12 @@
  *  GLOBAL CONSTANT MACROS
  *********************************************************************************************************************/
 
-
-/* *************************************NVIC REGISTERS*************************************************/
 #define CORTEXM4_PRIV_PERIPH_BASE_ADDR                  0xE000E000
 #define CORTEXM4_SYSCTRL_BASE_ADDR                      0x400FE000
+/* *************************************SYSTICK REGISTERS*************************************************/
 
+#define SYSTICK_REGISTER                                ((volatile SYSTICK_REG*)(CORTEXM4_PRIV_PERIPH_BASE_ADDR + 0x010))
+/* *************************************NVIC REGISTERS*************************************************/
 #define NVIC_REGISTER_EN                                ((volatile NVIC_REG_NO*)(CORTEXM4_PRIV_PERIPH_BASE_ADDR + 0x100))
 #define NVIC_REGISTER_DIS                               ((volatile NVIC_REG_NO*)(CORTEXM4_PRIV_PERIPH_BASE_ADDR + 0x180))
 #define NVIC_REGISTER_PEND                              ((volatile NVIC_REG_NO*)(CORTEXM4_PRIV_PERIPH_BASE_ADDR + 0x200))
@@ -51,12 +52,12 @@
 #define SYSCTRL_REG_SET3                                ((volatile SYSCTR_SET3*)(CORTEXM4_SYSCTRL_BASE_ADDR + 0x658))
 
 /**************************************GPIO REGISTERS*************************************************/
-#define GPIO_PORTA_GPIODATA                                  ((volatile INT_CTRL_TAG*)(0x40058000))
-#define GPIO_PORTB_GPIODATA                                  ((volatile INT_CTRL_TAG*)(0x40059000))
-#define GPIO_PORTC_GPIODATA                                  ((volatile INT_CTRL_TAG*)(0x4005A000))
-#define GPIO_PORTD_GPIODATA                                  ((volatile INT_CTRL_TAG*)(0x4005B000))
-#define GPIO_PORTE_GPIODATA                                  ((volatile INT_CTRL_TAG*)(0x4005C000))
-#define GPIO_PORTF_GPIODATA                                  ((volatile INT_CTRL_TAG*)(0x4005D000))
+#define GPIO_PORTA_GPIODATA                                  ((volatile INT_CTRL_TAG*)(0x400583FC))
+#define GPIO_PORTB_GPIODATA                                  ((volatile INT_CTRL_TAG*)(0x400593FC))
+#define GPIO_PORTC_GPIODATA                                  ((volatile INT_CTRL_TAG*)(0x4005A3FC))
+#define GPIO_PORTD_GPIODATA                                  ((volatile INT_CTRL_TAG*)(0x4005B3FC))
+#define GPIO_PORTE_GPIODATA                                  ((volatile INT_CTRL_TAG*)(0x4005C3FC))
+#define GPIO_PORTF_GPIODATA                                  ((volatile INT_CTRL_TAG*)(0x4005D3FC))
 
 #define GPIO_PORTA_REG_SET1                                  ((volatile GPIO_REG_SET1*)(0x40058000+0x400))
 #define GPIO_PORTB_REG_SET1                                  ((volatile GPIO_REG_SET1*)(0x40059000+0x400))
@@ -179,6 +180,13 @@ typedef union
     REG32_BF B;
 }INT_CTRL_TAG;
 
+
+typedef struct 
+{
+    INT_CTRL_TAG STCTRL;
+    INT_CTRL_TAG STRELOAD;
+    INT_CTRL_TAG STCURRENT;
+}SYSTICK_REG;
 
 typedef struct 
 {

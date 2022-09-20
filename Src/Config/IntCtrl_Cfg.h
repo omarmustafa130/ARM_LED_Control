@@ -18,115 +18,115 @@
 /**********************************************************************************************************************
  *  GLOBAL CONSTANT MACROS
  *********************************************************************************************************************/
-#define GPIO_PORTA_Int_State                                ENABLE
-#define GPIO_PORTB_Int_State                                ENABLE
-#define GPIO_PORTC_Int_State                                ENABLE
-#define GPIO_PORTD_Int_State                                ENABLE
-#define GPIO_PORTE_Int_State                                ENABLE
-#define GPIO_PORTF_Int_State                                ENABLE
+#define GPIO_PORTA_Int_State                                Enable
+#define GPIO_PORTB_Int_State                                Enable
+#define GPIO_PORTC_Int_State                                Enable
+#define GPIO_PORTD_Int_State                                Enable
+#define GPIO_PORTE_Int_State                                Enable
+#define GPIO_PORTF_Int_State                                Enable
 
-#define UART0_Int_State                                     ENABLE
-#define UART1_Int_State                                     ENABLE
-#define UART2_Int_State                                     ENABLE
-#define UART3_Int_State                                     ENABLE
-#define UART4_Int_State                                     ENABLE
-#define UART5_Int_State                                     ENABLE
-#define UART6_Int_State                                     ENABLE
-#define UART7_Int_State                                     ENABLE
+#define UART0_Int_State                                     Enable
+#define UART1_Int_State                                     Enable
+#define UART2_Int_State                                     Enable
+#define UART3_Int_State                                     Enable
+#define UART4_Int_State                                     Enable
+#define UART5_Int_State                                     Enable
+#define UART6_Int_State                                     Enable
+#define UART7_Int_State                                     Enable
 
-#define SSI0_Int_State                                      ENABLE
-#define SSI1_Int_State                                      ENABLE
-#define SSI2_Int_State                                      ENABLE
-#define SSI3_Int_State                                      ENABLE
+#define SSI0_Int_State                                      Enable
+#define SSI1_Int_State                                      Enable
+#define SSI2_Int_State                                      Enable
+#define SSI3_Int_State                                      Enable
 
-#define I2C0_Int_State                                      DISABLE
-#define I2C1_Int_State                                      DISABLE
-#define I2C2_Int_State                                      DISABLE
-#define I2C3_Int_State                                      DISABLE
+#define I2C0_Int_State                                      Enable
+#define I2C1_Int_State                                      Enable
+#define I2C2_Int_State                                      Enable
+#define I2C3_Int_State                                      Enable
 
-#define PWM0_Fault_Int_State                                DISABLE
+#define PWM0_Fault_Int_State                                Enable
 
-#define PWM0_Generator0_Int_State                           DISABLE
-#define PWM0_Generator1_Int_State                           DISABLE
-#define PWM0_Generator2_Int_State                           DISABLE
-#define PWM0_Generator3_Int_State                           DISABLE
+#define PWM0_Generator0_Int_State                           Enable
+#define PWM0_Generator1_Int_State                           Enable
+#define PWM0_Generator2_Int_State                           Enable
+#define PWM0_Generator3_Int_State                           Enable
 
-#define PWM1_Fault_Int_State                                DISABLE
+#define PWM1_Fault_Int_State                                Enable
 
-#define PWM1_Generator0_Int_State                           DISABLE
-#define PWM1_Generator1_Int_State                           DISABLE
-#define PWM1_Generator2_Int_State                           DISABLE
-#define PWM1_Generator3_Int_State                           DISABLE
+#define PWM1_Generator0_Int_State                           Enable
+#define PWM1_Generator1_Int_State                           Enable
+#define PWM1_Generator2_Int_State                           Enable
+#define PWM1_Generator3_Int_State                           Enable
 
-#define QEI0_Int_State                                      DISABLE
-#define QEI1_Int_State                                      DISABLE
+#define QEI0_Int_State                                      Enable
+#define QEI1_Int_State                                      Enable
 
-#define ADC0_Sequence0_Int_State                            DISABLE
-#define ADC0_Sequence1_Int_State                            DISABLE
-#define ADC0_Sequence2_Int_State                            DISABLE
-#define ADC0_Sequence3_Int_State                            DISABLE
+#define ADC0_Sequence0_Int_State                            Enable
+#define ADC0_Sequence1_Int_State                            Enable
+#define ADC0_Sequence2_Int_State                            Enable
+#define ADC0_Sequence3_Int_State                            Enable
 
-#define ADC1_Sequence0_Int_State                            DISABLE
-#define ADC1_Sequence1_Int_State                            DISABLE
-#define ADC1_Sequence2_Int_State                            DISABLE
-#define ADC1_Sequence3_Int_State                            DISABLE
+#define ADC1_Sequence0_Int_State                            Enable
+#define ADC1_Sequence1_Int_State                            Enable
+#define ADC1_Sequence2_Int_State                            Enable
+#define ADC1_Sequence3_Int_State                            Enable
 
-#define Watchdog_Timers0and1_Int_State                      DISABLE
+#define Watchdog_Timers0and1_Int_State                      Enable
 
-#define Timer0A_16or32Bit_Int_State                         ENABLE
-#define Timer0B_16or32Bit_Int_State                         ENABLE
+#define Timer0A_16or32Bit_Int_State                         Enable
+#define Timer0B_16or32Bit_Int_State                         Enable
 
-#define Timer1A_16or32Bit_Int_State                         DISABLE
-#define Timer1B_16or32Bit_Int_State                         DISABLE
+#define Timer1A_16or32Bit_Int_State                         Enable
+#define Timer1B_16or32Bit_Int_State                         Enable
 
-#define Timer2A_16or32Bit_Int_State                         DISABLE
-#define Timer2B_16or32Bit_Int_State                         DISABLE
+#define Timer2A_16or32Bit_Int_State                         Enable
+#define Timer2B_16or32Bit_Int_State                         Enable
 
-#define Timer3A_16or32Bit_Int_State                         DISABLE
-#define Timer3B_16or32Bit_Int_State                         DISABLE
+#define Timer3A_16or32Bit_Int_State                         Enable
+#define Timer3B_16or32Bit_Int_State                         Enable
 
-#define Timer4A_16or32Bit_Int_State                         DISABLE
-#define Timer4B_16or32Bit_Int_State                         DISABLE
+#define Timer4A_16or32Bit_Int_State                         Enable
+#define Timer4B_16or32Bit_Int_State                         Enable
 
-#define Timer5A_16or32Bit_Int_State                         DISABLE
-#define Timer5B_16or32Bit_Int_State                         DISABLE
+#define Timer5A_16or32Bit_Int_State                         Enable
+#define Timer5B_16or32Bit_Int_State                         Enable
 
-#define Timer0A_32or64Bit_Int_State                         DISABLE
-#define Timer0B_32or64Bit_Int_State                         DISABLE
+#define Timer0A_32or64Bit_Int_State                         Enable
+#define Timer0B_32or64Bit_Int_State                         Enable
 
-#define Timer1A_32or64Bit_Int_State                         DISABLE
-#define Timer1B_32or64Bit_Int_State                         DISABLE
+#define Timer1A_32or64Bit_Int_State                         Enable
+#define Timer1B_32or64Bit_Int_State                         Enable
 
-#define Timer2A_32or64Bit_Int_State                         DISABLE
-#define Timer2B_32or64Bit_Int_State                         DISABLE
+#define Timer2A_32or64Bit_Int_State                         Enable
+#define Timer2B_32or64Bit_Int_State                         Enable
 
-#define Timer3A_32or64Bit_Int_State                         DISABLE
-#define Timer3B_32or64Bit_Int_State                         DISABLE
+#define Timer3A_32or64Bit_Int_State                         Enable
+#define Timer3B_32or64Bit_Int_State                         Enable
 
-#define Timer4A_32or64Bit_Int_State                         DISABLE
-#define Timer4B_32or64Bit_Int_State                         DISABLE
+#define Timer4A_32or64Bit_Int_State                         Enable
+#define Timer4B_32or64Bit_Int_State                         Enable
 
-#define Timer5A_32or64Bit_Int_State                         DISABLE
-#define Timer5B_32or64Bit_Int_State                         DISABLE
+#define Timer5A_32or64Bit_Int_State                         Enable
+#define Timer5B_32or64Bit_Int_State                         Enable
 
-#define Analog_Comparator0_Int_State                        DISABLE
-#define Analog_Comparator1_Int_State                        DISABLE
+#define Analog_Comparator0_Int_State                        Enable
+#define Analog_Comparator1_Int_State                        Enable
 
-#define SystemControl_Int_State                             DISABLE
+#define SystemControl_Int_State                             Enable
 
-#define FMC_and_EEPROMC_Int_state                           DISABLE
+#define FMC_and_EEPROMC_Int_state                           Enable
 
-#define CAN0_Int_State                                      DISABLE
-#define CAN1_Int_State                                      DISABLE
+#define CAN0_Int_State                                      Enable
+#define CAN1_Int_State                                      Enable
 
-#define HibernationModule_Int_State                         DISABLE
+#define HibernationModule_Int_State                         Enable
 
-#define USB_Int_State                                       DISABLE
+#define USB_Int_State                                       Enable
 
-#define UDMA_Software_Int_State                             DISABLE
-#define UDMA_Error_Int_State                                DISABLE
+#define UDMA_Software_Int_State                             Enable
+#define UDMA_Error_Int_State                                Enable
 
-#define SystemException_Int_State                           DISABLE
+#define SystemException_Int_State                           Enable
 
 #define Int_Group_and_Subgroup_config                       _8Groups_1Subgroup
 
@@ -175,8 +175,8 @@
 /**********************************PRI9****************************************/
 #define PRI_Timer3B_16or32Bit                               G2
 #define PRI_I2C1                                            G4
-#define QEI1                                                G7
-#define CAN0                                                G4
+#define QEI1_                                               G7
+#define CAN0_                                               G4
 /**********************************PRI10****************************************/
 #define PRI_CAN1                                            G4
 #define PRI_HibernationModule                               G6
@@ -248,7 +248,7 @@
 /*******************************************************************************/
 
 /**********************************SYSPRI1****************************************/
-#define SYSPRI_MEM                                          PRI0
+#define SYSPRI_MEM                                          PRI6
 #define SYSPRI_BUS                                          PRI1
 #define SYSPRI_USAGE                                        PRI2
 /**********************************SYSPRI2****************************************/
@@ -256,26 +256,26 @@
 /**********************************SYSPRI3****************************************/
 #define SYSPRI_DEBUG                                        PRI4
 #define SYSPRI_PENDSV                                       PRI5
-#define SYSPRI_TICK                                         PRI6
+#define SYSPRI_TICK                                         PRI0
 /*********************************************************************************/
 
 
 /***********************************SYSHNDCTRL************************************/
 
-#define MEMA_State                                         ENABLE
-#define BUSA_State                                         ENABLE
-#define USGA_State                                         ENABLE
-#define SVCA_State                                         ENABLE
-#define MON_State                                          ENABLE
-#define PNDSV_State                                        ENABLE
-#define TICK_State                                         ENABLE
-#define USAGEP_State                                       ENABLE
-#define MEMP_State                                         ENABLE
-#define BUSP_State                                         ENABLE
-#define SVC_State                                          ENABLE
-#define MEM_State                                          ENABLE
-#define BUS_State                                          ENABLE
-#define USAGE_State                                        ENABLE
+#define MEMA_State                                         DISABLE
+#define BUSA_State                                         DISABLE
+#define USGA_State                                         DISABLE
+#define SVCA_State                                         DISABLE
+#define MON_State                                          DISABLE
+#define PNDSV_State                                        DISABLE
+#define TICK_State                                         DISABLE
+#define USAGEP_State                                       DISABLE
+#define MEMP_State                                         DISABLE
+#define BUSP_State                                         DISABLE
+#define SVC_State                                          DISABLE
+#define MEM_State                                          DISABLE
+#define BUS_State                                          DISABLE
+#define USAGE_State                                        DISABLE
 
 /**********************************************************************************************************************
  *  GLOBAL FUNCTION MACROS

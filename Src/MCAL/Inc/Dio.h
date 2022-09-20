@@ -58,11 +58,11 @@ typedef enum {
 /**********************************************************************************************************************
  *  GLOBAL FUNCTION PROTOTYPES
  *********************************************************************************************************************/
- Dio_LevelType Dio_ReadChannel(Port_PinType pinType);
+ u8 Dio_ReadChannel(Port_PinType pinType);
  void Dio_WriteChannel(Port_PinType pinType, Dio_LevelType level);
- Dio_PortLevelType Dio_ReadPort(PortType port);
+ u8 Dio_ReadPort(PortType port);
  void Dio_WritePort(PortType port, Dio_PortLevelType level);
- void Dio_FlipChannel(Port_PinType pinType);
+ void Dio_FlipChannel(u8 pinType);
 
 #endif  /* DIO_H */
 

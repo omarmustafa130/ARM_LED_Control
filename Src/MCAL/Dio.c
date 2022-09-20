@@ -54,7 +54,7 @@
 * \Return value:   : void
 *******************************************************************************/
 
- Dio_LevelType Dio_ReadChannel(Port_PinType ChannelID)
+ u8 Dio_ReadChannel(Port_PinType ChannelID)
  {	
 		u8 x=0;
     if (ChannelID <=7)
@@ -124,7 +124,7 @@ return x;
     }  
  }
 
- Dio_PortLevelType Dio_ReadPort(PortType Port)
+ u8 Dio_ReadPort(PortType Port)
  {
     switch (Port)
     {
@@ -141,6 +141,7 @@ return x;
     case PORTF:
         return (GPIO_PORTF_GPIODATA->R);
     }
+		return 0;
  }
  void Dio_WritePort(PortType Port, Dio_PortLevelType Level)
  {
@@ -167,7 +168,7 @@ return x;
     }   
  }
 
- void Dio_FlipChannel(Port_PinType ChannelID)
+ void Dio_FlipChannel(u8 ChannelID)
  {
     if ( ChannelID<=7)
     {

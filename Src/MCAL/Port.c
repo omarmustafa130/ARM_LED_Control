@@ -8,20 +8,18 @@
 
 void PORT_init(void)
 {
-    u8 conf_pin_count;
+	
+u8 conf_pin_count;
     for(conf_pin_count=0; conf_pin_count<43; conf_pin_count++)
     {   
+
         if (conf_pin_count<=7)
-        {   
+        { 
+					 GPIO_PORTA_REG_SET2->GPIOLOCK.R=0;
+           GPIO_PORTA_REG_SET2->GPIOCR.R=0xFFFFFFFF;
             /*check on mode*/
             if (ConfiguredPin[conf_pin_count].PortPinMode == DIO)
             {   
-                if (conf_pin_count==0 || conf_pin_count==1 || conf_pin_count==2 || conf_pin_count==3 || conf_pin_count==4 || conf_pin_count==5 || conf_pin_count==10 || conf_pin_count==11 || conf_pin_count==16 || conf_pin_count==31 || conf_pin_count==38)
-                {
-                    //unlock and commit
-                    GPIO_PORTA_REG_SET2->GPIOLOCK.R=0x4C4F434B;
-                    GPIO_PORTA_REG_SET2->GPIOCR.R=(1<<conf_pin_count%7);
-                }
                 //CHOOSE GPIO Function, Enable Digital function, Disable Analog Finction
                 CLR_BIT(GPIO_PORTA_REG_SET1->GPIOAFSEL.R, conf_pin_count%7);
                 SET_BIT(GPIO_PORTA_REG_SET2->GPIODEN.R, conf_pin_count%7);
@@ -88,22 +86,19 @@ void PORT_init(void)
         }
         else if (conf_pin_count>=8&&conf_pin_count<=15)
         {   
+					 GPIO_PORTB_REG_SET2->GPIOLOCK.R=0;
+           GPIO_PORTB_REG_SET2->GPIOCR.R=0xFFFFFFFF;
             if (ConfiguredPin[conf_pin_count].PortPinMode == DIO)
             {   
-                //check if the pin is not gpio by default
-                if (conf_pin_count==0 || conf_pin_count==1 || conf_pin_count==2 || conf_pin_count==3 || conf_pin_count==4 || conf_pin_count==5 || conf_pin_count==10 || conf_pin_count==11 || conf_pin_count==16 || conf_pin_count==31 || conf_pin_count==38)
-                {
-                    //unlock and commit
-                    GPIO_PORTB_REG_SET2->GPIOLOCK.R=0x4C4F434B;
-                    GPIO_PORTB_REG_SET2->GPIOCR.R=(1<<conf_pin_count%7);
-                }
+
                 //CHOOSE GPIO Function, Enable Digital function, Disable Analog Finction
-                CLR_BIT(GPIO_PORTB_REG_SET1->GPIOAFSEL.R, conf_pin_count%7);
+                /*CLR_BIT(GPIO_PORTB_REG_SET1->GPIOAFSEL.R, conf_pin_count%7);*/
                 SET_BIT(GPIO_PORTB_REG_SET2->GPIODEN.R, conf_pin_count%7);
-                CLR_BIT(GPIO_PORTB_REG_SET2->GPIOAMSEL.R, conf_pin_count%7);
+                /*CLR_BIT(GPIO_PORTB_REG_SET2->GPIOAMSEL.R, conf_pin_count%7);*/
 
                 //Direction and Level
-                GPIO_PORTB_REG_SET1->GPIODIR.R|=(ConfiguredPin[conf_pin_count].PortPinDirection)<<(conf_pin_count%7);
+								GPIO_PORTB_REG_SET1->GPIODIR.R=0;
+                GPIO_PORTB_REG_SET1->GPIODIR.R|=255;
                 if (ConfiguredPin[conf_pin_count].PortPinLevelValue == HIGH)
                     SET_BIT(GPIO_PORTB_GPIODATA->R, conf_pin_count%7);
                 //InternalAttach
@@ -112,10 +107,10 @@ void PORT_init(void)
                 GPIO_PORTB_REG_SET2->GPIOPUR.R|=(ConfiguredPin[conf_pin_count].PortPinPullUp)<<(conf_pin_count%7);
                 GPIO_PORTB_REG_SET2->GPIOPDR.R|=(ConfiguredPin[conf_pin_count].PortPinPulldown)<<(conf_pin_count%7);
                 //Output current
-                GPIO_PORTB_REG_SET2->GPIODR2R.R|=(0x000000FF)|(ConfiguredPin[conf_pin_count].PortPinOutputCurrent_2mA)<<(conf_pin_count%7);
+                /*GPIO_PORTB_REG_SET2->GPIODR2R.R|=(0x000000FF)|(ConfiguredPin[conf_pin_count].PortPinOutputCurrent_2mA)<<(conf_pin_count%7);
                 GPIO_PORTB_REG_SET2->GPIODR4R.R|=(ConfiguredPin[conf_pin_count].PortPinOutputCurrent_4mA)<<(conf_pin_count%7);
                 GPIO_PORTB_REG_SET2->GPIODR8R.R|=(ConfiguredPin[conf_pin_count].PortPinOutputCurrent_8mA)<<(conf_pin_count%7);
-            }
+            */}
             else if (ConfiguredPin[conf_pin_count].PortPinMode == AlternateFunction)
             {   
                 //check if the pin is not gpio by default
@@ -161,16 +156,11 @@ void PORT_init(void)
         }
 
         else if (conf_pin_count>=16&&conf_pin_count<=23)
-        {   
+        {   					 
+					  GPIO_PORTC_REG_SET2->GPIOLOCK.R=0;
+            GPIO_PORTC_REG_SET2->GPIOCR.R=0xFFFFFFFF;
             if (ConfiguredPin[conf_pin_count].PortPinMode == DIO)
             {   
-                //check if the pin is not gpio by default
-                if (conf_pin_count==0 || conf_pin_count==1 || conf_pin_count==2 || conf_pin_count==3 || conf_pin_count==4 || conf_pin_count==5 || conf_pin_count==10 || conf_pin_count==11 || conf_pin_count==16 || conf_pin_count==31 || conf_pin_count==38)
-                {
-                    //unlock and commit
-                    GPIO_PORTC_REG_SET2->GPIOLOCK.R=0x4C4F434B;
-                    GPIO_PORTC_REG_SET2->GPIOCR.R=(1<<conf_pin_count%7);
-                }
                 //CHOOSE GPIO Function, Enable Digital function, Disable Analog Finction
                 CLR_BIT(GPIO_PORTC_REG_SET1->GPIOAFSEL.R, conf_pin_count%7);
                 SET_BIT(GPIO_PORTC_REG_SET2->GPIODEN.R, conf_pin_count%7);
@@ -236,15 +226,11 @@ void PORT_init(void)
         }  
         else if (conf_pin_count>=24&&conf_pin_count<=31)
         {   
-            if (ConfiguredPin[conf_pin_count].PortPinMode == DIO)
+					  GPIO_PORTD_REG_SET2->GPIOLOCK.R=0;
+            GPIO_PORTD_REG_SET2->GPIOCR.R=0xFFFFFFFF;
+            
+					if (ConfiguredPin[conf_pin_count].PortPinMode == DIO)
             {   
-                //check if the pin is not gpio by default
-                if (conf_pin_count==0 || conf_pin_count==1 || conf_pin_count==2 || conf_pin_count==3 || conf_pin_count==4 || conf_pin_count==5 || conf_pin_count==10 || conf_pin_count==11 || conf_pin_count==16 || conf_pin_count==31 || conf_pin_count==38)
-                {
-                    //unlock and commit
-                    GPIO_PORTD_REG_SET2->GPIOLOCK.R=0x4C4F434B;
-                    GPIO_PORTD_REG_SET2->GPIOCR.R=(1<<conf_pin_count%7);
-                }
                 //CHOOSE GPIO Function, Enable Digital function, Disable Analog Finction
                 CLR_BIT(GPIO_PORTD_REG_SET1->GPIOAFSEL.R, conf_pin_count%7);
                 SET_BIT(GPIO_PORTD_REG_SET2->GPIODEN.R, conf_pin_count%7);
@@ -309,16 +295,11 @@ void PORT_init(void)
             }
         } 
         else if (conf_pin_count>=32&&conf_pin_count<=37)
-        {   
+        {   					  
+					  GPIO_PORTE_REG_SET2->GPIOLOCK.R=0;
+            GPIO_PORTE_REG_SET2->GPIOCR.R|=0x3F;
             if (ConfiguredPin[conf_pin_count].PortPinMode == DIO)
             {   
-                //check if the pin is not gpio by default
-                if (conf_pin_count==0 || conf_pin_count==1 || conf_pin_count==2 || conf_pin_count==3 || conf_pin_count==4 || conf_pin_count==5 || conf_pin_count==10 || conf_pin_count==11 || conf_pin_count==16 || conf_pin_count==31 || conf_pin_count==38)
-                {
-                    //unlock and commit
-                    GPIO_PORTE_REG_SET2->GPIOLOCK.R=0x4C4F434B;
-                    GPIO_PORTE_REG_SET2->GPIOCR.R=(1<<conf_pin_count%7);
-                }
                 //CHOOSE GPIO Function, Enable Digital function, Disable Analog Finction
                 CLR_BIT(GPIO_PORTE_REG_SET1->GPIOAFSEL.R, (conf_pin_count%7));
                 SET_BIT(GPIO_PORTE_REG_SET2->GPIODEN.R, (conf_pin_count%7));
@@ -381,15 +362,10 @@ void PORT_init(void)
         }
         else if (conf_pin_count>=38&&conf_pin_count<=42)
         {   
+						GPIO_PORTF_REG_SET2->GPIOLOCK.R=0;
+            GPIO_PORTF_REG_SET2->GPIOCR.R|=0xF;
             if (ConfiguredPin[conf_pin_count].PortPinMode == DIO)
             {   
-                //check if the pin is not gpio by default
-                if (conf_pin_count==0 || conf_pin_count==1 || conf_pin_count==2 || conf_pin_count==3 || conf_pin_count==4 || conf_pin_count==5 || conf_pin_count==10 || conf_pin_count==11 || conf_pin_count==16 || conf_pin_count==31 || conf_pin_count==38)
-                {
-                    //unlock and commit
-                    GPIO_PORTF_REG_SET2->GPIOLOCK.R=0x4C4F434B;
-                    GPIO_PORTF_REG_SET2->GPIOCR.R=(1<<conf_pin_count%7);
-                }
                 //CHOOSE GPIO Function, Enable Digital function, Disable Analog Finction
                 CLR_BIT(GPIO_PORTF_REG_SET1->GPIOAFSEL.R, (conf_pin_count%7));
                 SET_BIT(GPIO_PORTF_REG_SET2->GPIODEN.R, (conf_pin_count%7));
@@ -453,3 +429,5 @@ void PORT_init(void)
     }
     
 }
+
+

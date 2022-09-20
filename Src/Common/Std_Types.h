@@ -34,8 +34,8 @@
    #define FALSE  0
 #endif
 
-#ifndef ENABLE
-   #define ENABLE   1
+#ifndef Enable
+   #define Enable   1
 #endif
 
 #ifndef DISABLE
